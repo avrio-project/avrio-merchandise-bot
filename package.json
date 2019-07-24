@@ -1,0 +1,28 @@
+{
+  "name": "merchandise-bot",
+  "version": "1.0.0",
+  "description": "Merchandise Bot for TurtleCoin",
+  "main": "main.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fipsi03/merchandise-bot.git"
+  },
+  "keywords": [
+    "turtlecoin",
+    "discord"
+  ],
+  "author": "fipsi03",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fipsi03/merchandise-bot/issues"
+  },
+  "homepage": "https://github.com/fipsi03/merchandise-bot#readme"
+}
