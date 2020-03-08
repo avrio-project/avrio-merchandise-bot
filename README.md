@@ -1,3 +1,3 @@
-# TurtleCoin Merchandise Bot
+# Avrio Merchandise Bot
 
-A merchandise bot for TurtleCoin
+A merchandise bot for Avrio
