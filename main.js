@@ -45,9 +45,9 @@ In order to add an item just send a formatted message:
 -Title (can be with spaces)
 -Description
 can be multi line
--<price> TRTL'''
-Made by fipsi#0789 - If you have any questions, he can help you
-Hosted by DroppingThePacketsHard#1822 - If the bot is down, ping him
+-<price> AIO'''
+Made by fipsi#0789, adapted to Avrio by leo cornelius - If you have any questions, Leo  can help you
+Hosted by Leo Cornelius [AIO]#9160 - If the bot is down, ping him
 			`);
 			return;
 	}
@@ -80,7 +80,7 @@ Hosted by DroppingThePacketsHard#1822 - If the bot is down, ping him
 				data = JSON.parse(data);
 				if (itemId in data) {
 					let item = data[itemId];
-					reply(`**${item.title} - #${itemId}**\n\n${item.description}\nPrice: ${getTrtlPrice(item.price)} TRTL\nSeller: <@${item.author}>. Ping him/her for more information`);
+					reply(`**${item.title} - #${itemId}**\n\n${item.description}\nPrice: ${getTrtlPrice(item.price)} AIO\nSeller: <@${item.author}>. Ping him/her for more information`);
 				} else {
 					reply('I couldn\'t find this id.. Are you sure you entered it correctly?');
 				}
@@ -136,7 +136,7 @@ Hosted by DroppingThePacketsHard#1822 - If the bot is down, ping him
 	if (txt.startsWith('-price')) {
 		const [ unformattedId, newPrice ] = txt.split(' ').slice(1, 3);
 		if (unformattedId && newPrice) {
-			const formattedPrice = parseFloat(newPrice.replace('TRTL', '').trim());
+			const formattedPrice = parseFloat(newPrice.replace('AIO', '').trim());
 			const id = unformattedId.replace('#', '');
 
 			if (isNaN(formattedPrice) || formattedPrice <= 0) {
@@ -156,12 +156,12 @@ Hosted by DroppingThePacketsHard#1822 - If the bot is down, ping him
 								.then((message) => {
 									let contents = message.content;
 									message.edit(
-										contents.replace(oldPrice + ' TRTL', data[id].price + ' TRTL')
+										contents.replace(oldPrice + ' AIO', data[id].price + ' AIO')
 									).then(()=>{}).catch(()=>{});
 								})
 								.catch((err)=>{});
 							fs.writeFile('items.json', JSON.stringify(data, null, 4), (err) => {} );
-							reply('The new price for item **#' + id + '** is ' + formattedPrice + ' TRTL');
+							reply('The new price for item **#' + id + '** is ' + formattedPrice + ' AIO');
 							msg.delete();
 						} else {
 							reply('You can\'t change the price of this item because you\'re not the seller..');
@@ -172,7 +172,7 @@ Hosted by DroppingThePacketsHard#1822 - If the bot is down, ping him
 				}
 			});
 		} else {
-			reply('Please specify an id and a new price: `-price #<old id> <new price> TRTL`');
+			reply('Please specify an id and a new price: `-price #<old id> <new price> AIO`');
 		}
 
 		return;
@@ -196,14 +196,14 @@ Hosted by DroppingThePacketsHard#1822 - If the bot is down, ping him
 -Title (can be with spaces)
 -Description
 can be multi line
--<price> TRTL'''`);
+-<price> AIO'''`);
 			return;
 		}
 
 		if (formattedPrice.indexOf("USD") > -1 || formattedPrice.indexOf("EUR") > -1) {
 			if (!isDM) {
 				msg.delete();
-				msg.author.send(":ban: :joy: Please don't send a USD or EUR price in the Turtlecoin discord! There is a own market talk server linked in #market-talk.\nIf you want to list a product with a fiat price, you can DM me and change the TRTL amount to a USD, EUR equivalent!\nThanks for your understanding ;)");
+				msg.author.send(":ban: :joy: Please don't send a USD or EUR price in the Avrio discord! There is a own market talk server linked in #market-talk.\nIf you want to list a product with a fiat price, you can DM me and change the AIO amount to a USD, EUR equivalent!\nThanks for your understanding ;)");
 				return;
 			}
 		}
@@ -231,8 +231,8 @@ can be multi line
 							// 	finalPrice = parseFloat(finalPrice.replace("USD", "").trim()) / prizes["usd"];
 							// } else if (formattedPrice.indexOf("EUR") > -1) {
 							// 	finalPrice = parseFloat(finalPrice.replace("EUR", "").trim()) / prizes["eur"];
-							// } else if (formattedPrice.indexOf("TRTL")) {
-							// 	finalPrice = parseFloat(formattedPrice.replace("TRTL", "").trim());
+							// } else if (formattedPrice.indexOf("AIO")) {
+							// 	finalPrice = parseFloat(formattedPrice.replace("AIO", "").trim());
 							// }
 							// if (isNaN(finalPrice)) {
 							// 	reply("The price you entered isn't valid...");
@@ -244,7 +244,7 @@ can be multi line
 						reply(`**${title.replace('\n', '')} - #${id}**
 
 ${description}
-Price: ${finalPrice} TRTL
+Price: ${finalPrice} AIO
 Seller: <@${currentAuthor}>. Ping him/her for more information.`, true, (mId) => {
 							data[id] = {
 								author: msg.author.id,
@@ -273,15 +273,15 @@ function getTrtlPrice(formatd) {
 		price = parseFloat(formatd.replace("USD", "").trim()) / prizes["usd"];
 	} else if (formatd.indexOf("EUR") > -1) {
 		price = parseFloat(formatd.replace("EUR", "").trim()) / prizes["eur"];
-	} else if (formatd.indexOf("TRTL") > -1) {
-		price = parseFloat(formatd.replace("TRTL", "").trim());
+	} else if (formatd.indexOf("AIO") > -1) {
+		price = parseFloat(formatd.replace("AIO", "").trim());
 	}
 	return (isNaN(price) ? 0 : formatMoney(price, 2, ".", ","));
 }
 function updatePrizes() {
 	get("https://api.coingecko.com/api/v3/simple/price?ids=turtlecoin&vs_currencies=usd,eur", function (data) {
 		console.log("Price:", data);
-		if (data !== false) {
+	        if (data !== false) {
 			data = JSON.parse(data);
 			prizes = data["turtlecoin"];
 			fs.readFile("items.json", "utf8", (err, data) => {
@@ -293,7 +293,7 @@ function updatePrizes() {
 						let content = message.content;
 
 						message.edit(
-							content.replace(/([0-9., ]{2,}TRTL)/gi, " " + getTrtlPrice(item.price) + " TRTL")
+							content.replace(/([0-9., ]{2,}AIO)/gi, " " + getTrtlPrice(item.price) + " AIO")
 						).then((msg)=>{}).catch((err)=>{})
 					}).catch((err) => {});
 				}
